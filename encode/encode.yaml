@@ -19,4 +19,4 @@ spec:
   input: encode-input
   output: encode-output
   container:
-    image: projectriff/encode:1.0.0
+    image: gnormington/encode:0.0.1
