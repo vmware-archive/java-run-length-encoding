@@ -28,6 +28,5 @@ decodes to the following stream:
 
 ```
 
-Of course, `Encode` followed by `Decode` produces the original stream of integers.
-
-**Optional exercise:** when will `Decode` followed by `Encode` _not_ produce the original stream of integers? 
+**Optional exercise:** of course `Encode` followed by `Decode` produces the original stream of integers, but when will
+`Decode` followed by `Encode` _not_ produce the original stream of integers? ([Hint](decode/src/test/java/functions/DecodeTests.java)) 
