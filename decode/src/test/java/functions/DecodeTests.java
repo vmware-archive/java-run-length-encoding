@@ -19,55 +19,55 @@ public class DecodeTests {
 	@Test
 	public void testEmpty() {
 		StepVerifier.create(Flux.<Integer>empty().as(decode))
-				.verifyComplete();
+			.verifyComplete();
 	}
 
 	@Test
 	public void testSingle() {
 		StepVerifier.create(Flux.just(1, 0).as(decode))
-				.expectNext(0)
-				.verifyComplete();
+			.expectNext(0)
+			.verifyComplete();
 	}
 
 	@Test
 	public void testRuns() {
 		StepVerifier.create(Flux.just(3, 0, 1, 1, 2, 2).as(decode))
-				.expectNext(0, 0, 0, 1, 2, 2)
-				.verifyComplete();
+			.expectNext(0, 0, 0, 1, 2, 2)
+			.verifyComplete();
 	}
 
 	@Test
 	public void testDegenerateRun() {
 		StepVerifier.create(Flux.just(1, 0, 0, 1, 1, 2).as(decode))
-				.expectNext(0, 2)
-				.verifyComplete();
+			.expectNext(0, 2)
+			.verifyComplete();
 	}
 
 	@Test
 	public void testUnexpectedRun() {
 		StepVerifier.create(Flux.just(1, 0, 1, 0).as(decode))
-				.expectNext(0, 0)
-				.verifyComplete();
+			.expectNext(0, 0)
+			.verifyComplete();
 	}
 
 	@Test
 	public void testLong() {
 		StepVerifier.create(Flux.just(1000, 0).as(decode))
-				.expectNextSequence(Collections.nCopies(1000, 0))
-				.verifyComplete();
+			.expectNextSequence(Collections.nCopies(1000, 0))
+			.verifyComplete();
 	}
 
 	@Test
 	public void testCountWithNoValue() {
 		StepVerifier.create(Flux.just(2, 1, 0).as(decode))
-				.expectNext(1, 1)
-				.verifyError(IllegalArgumentException.class);
+			.expectNext(1, 1)
+			.verifyError(IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testNegativeCount() {
 		StepVerifier.create(Flux.just(2, 1, -1, 0, 2, 2).as(decode))
-				.expectNext(1, 1)
-				.verifyError(IllegalArgumentException.class);
+			.expectNext(1, 1)
+			.verifyError(IllegalArgumentException.class);
 	}
 }
