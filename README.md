@@ -16,7 +16,14 @@ encodes to:
 < 1, 0, 2, 1, 3, 2 >
 
 ```
-Encoding or decoding an empty input stream results in an empty output stream.
+Encoding empty input stream results in an empty output stream.
+
+
+To deploy the `Encode` function, use the [riff](https://github.com/projectriff/riff-cli) CLI:
+```bash
+cd encode
+riff update -f encode.yaml
+```
 
 The `Decode` function takes a run-length encoded input stream and emits the decoded output stream.
 For example, the stream:
@@ -28,6 +35,13 @@ decodes to:
 ```
 < 1, 1, 1, 0 >
 
+```
+Decoding an empty input stream results in an empty output stream.
+
+To deploy the `Decode` function, use the [riff](https://github.com/projectriff/riff-cli) CLI:
+```bash
+cd decode
+riff update -f decode.yaml
 ```
 
 **Optional exercise:** of course `Encode` followed by `Decode` produces the original stream of integers, but when will
