@@ -1,0 +1,22 @@
+apiVersion: projectriff.io/v1
+kind: Topic
+metadata:
+  name: decode-input
+---
+
+apiVersion: projectriff.io/v1
+kind: Topic
+metadata:
+  name: decode-output
+---
+
+apiVersion: projectriff.io/v1
+kind: Function
+metadata:
+  name: decode
+spec:
+  protocol: grpc
+  input: decode-input
+  output: decode-output
+  container:
+    image: projectriff/decode:1.0.0

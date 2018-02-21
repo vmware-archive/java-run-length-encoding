@@ -1,0 +1,22 @@
+apiVersion: projectriff.io/v1
+kind: Topic
+metadata:
+  name: encode-input
+---
+
+apiVersion: projectriff.io/v1
+kind: Topic
+metadata:
+  name: encode-output
+---
+
+apiVersion: projectriff.io/v1
+kind: Function
+metadata:
+  name: encode
+spec:
+  protocol: grpc
+  input: encode-input
+  output: encode-output
+  container:
+    image: projectriff/encode:1.0.0
