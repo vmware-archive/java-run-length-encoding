@@ -14,21 +14,15 @@ public class Encode implements Function<Flux<Integer>, Flux<Integer>> {
 	public Flux<Integer> apply(Flux<Integer> input) {
 		return input.
 			bufferUntil(new Predicate<Integer>() {
-				boolean initial = true;
-				int old;
+				Integer old;
 
 				@Override
 				public boolean test(Integer item) {
-					if (initial) {
-						initial = false;
+					try {
+						return !item.equals(old);
+					} finally {
 						old = item;
-						return false;
 					}
-					if (item != old) {
-						old = item;
-						return true;
-					}
-					return false;
 				}
 			}, true). // cut before item that terminates the buffer
 			flatMap(buf -> Flux.just(buf.size(), buf.get(0)));
