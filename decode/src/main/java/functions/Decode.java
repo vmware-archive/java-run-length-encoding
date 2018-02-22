@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -15,12 +16,11 @@ public class Decode implements Function<Flux<Integer>, Flux<Integer>> {
 	public Flux<Integer> apply(Flux<Integer> input) {
 		return input.
 			bufferUntil(new Predicate<Integer>() {
-				boolean emit = true;
+				AtomicBoolean emit = new AtomicBoolean();
 
 				@Override
 				public boolean test(Integer item) {
-					emit = !emit;
-					return emit;
+					return emit.getAndSet(!emit.get());
 				}
 			}).
 			flatMap(buf -> {
