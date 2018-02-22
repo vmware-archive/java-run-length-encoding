@@ -9,6 +9,8 @@ import java.util.Collections;
 
 public class DecodeTests {
 
+	private static class TestError extends RuntimeException {}
+
 	Decode decode;
 
 	@Before
@@ -69,5 +71,24 @@ public class DecodeTests {
 		StepVerifier.create(Flux.just(2, 1, -1, 0, 2, 2).as(decode))
 			.expectNext(1, 1)
 			.verifyError(IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testErrorOnly() {
+		StepVerifier.create(Flux.<Integer>error(new TestError()).as(decode))
+			.verifyError(TestError.class);
+	}
+
+	@Test
+	public void testError() {
+		StepVerifier.create(Flux.concatDelayError(Flux.just(1, 0), Flux.error(new TestError())).as(decode))
+			.expectNext(0)
+			.verifyError(TestError.class);
+	}
+
+	@Test
+	public void testCountWithNoValueOnError() {
+		StepVerifier.create(Flux.concatDelayError(Flux.just(1), Flux.error(new TestError())).as(decode))
+			.verifyError(TestError.class);
 	}
 }

@@ -30,5 +30,7 @@ decodes to:
 
 ```
 
-**Optional exercise:** of course `Encode` followed by `Decode` produces the original stream of integers, but when will
-`Decode` followed by `Encode` _not_ produce the original stream of integers? ([Hint](decode/src/test/java/functions/DecodeTests.java)) 
+**Optional puzzle:** of course `Encode` followed by `Decode` produces the original stream of integers, but when will
+`Decode` followed by `Encode` _not_ produce the original stream of integers? ([Strong hint](decode/src/test/java/functions/DecodeTests.java) - don't look if you want to solve this puzzle yourself)
+
+**Answer:** [here](./.answers/.ANSWER1.md) 

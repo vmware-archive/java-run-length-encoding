@@ -12,6 +12,8 @@ import reactor.test.StepVerifier;
 
 public class EncodeTests {
 
+	private static class TestError extends RuntimeException {}
+
 	Encode encode;
 
 	@Before
@@ -46,5 +48,16 @@ public class EncodeTests {
 			.verifyComplete();
 	}
 
+	@Test
+	public void testErrorOnly() {
+		StepVerifier.create(Flux.<Integer>error(new TestError()).as(encode))
+			.verifyError(TestError.class);
+	}
 
+	@Test
+	public void testError() {
+		StepVerifier.create(Flux.concatDelayError(Flux.just(1, 1), Flux.error(new TestError())).as(encode))
+			.expectNext(1, 0)  // 1, 1 does not follow because the error does not flush the internal buffer
+			.verifyError(TestError.class);
+	}
 }
