@@ -71,7 +71,7 @@ public class DecodeEncodeRoundTripTests {
 
 	@Test
 	public void testNegativeCount() {
-		StepVerifier.create(Flux.just(2, 1, -1, 0).as(decode).as(encode))
+		StepVerifier.create(Flux.just(-1, 0).as(decode).as(encode))
 			.verifyError(IllegalArgumentException.class);
 	}
 
