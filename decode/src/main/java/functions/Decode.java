@@ -15,14 +15,7 @@ import reactor.core.publisher.Flux;
 public class Decode implements Function<Flux<Integer>, Flux<Integer>> {
 	public Flux<Integer> apply(Flux<Integer> input) {
 		return input.
-			bufferUntil(new Predicate<Integer>() {
-				AtomicBoolean emit = new AtomicBoolean();
-
-				@Override
-				public boolean test(Integer item) {
-					return emit.getAndSet(!emit.get());
-				}
-			}).
+			buffer(2).
 			flatMap(buf -> {
 				if (buf.size() != 2) {
 					return Flux.error(new IllegalArgumentException("A run-length encoded stream must not have an odd number of elements"));

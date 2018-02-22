@@ -1,14 +1,11 @@
 package functions;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.*;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
+
+import java.util.Collections;
 
 public class EncodeTests {
 
