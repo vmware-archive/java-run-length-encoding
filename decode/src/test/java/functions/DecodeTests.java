@@ -46,7 +46,7 @@ public class DecodeTests {
 	}
 
 	@Test
-	public void testUnexpectedRun() {
+	public void testDoubleRun() {
 		StepVerifier.create(Flux.just(1, 0, 1, 0).as(decode))
 			.expectNext(0, 0)
 			.verifyComplete();
@@ -68,7 +68,7 @@ public class DecodeTests {
 
 	@Test
 	public void testNegativeCount() {
-		StepVerifier.create(Flux.just(2, 1, -1, 0, 2, 2).as(decode))
+		StepVerifier.create(Flux.just(2, 1, -1, 0).as(decode))
 			.expectNext(1, 1)
 			.verifyError(IllegalArgumentException.class);
 	}
