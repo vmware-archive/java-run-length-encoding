@@ -30,7 +30,7 @@ decodes to:
 
 ```
 
-**Optional puzzle:** of course `Encode` followed by `Decode` produces the original stream of integers, but when will
+**Optional puzzle:** `Encode` followed by `Decode` [usually](./.answers/.EDGE_CASES.md) produces the original stream of integers, but when will
 `Decode` followed by `Encode` _not_ produce the original stream of integers? ([Strong hint](decode/src/test/java/functions/DecodeTests.java) - don't look if you want to solve this puzzle yourself)
 
 **Answer:** [here](./.answers/.ANSWER1.md) 
