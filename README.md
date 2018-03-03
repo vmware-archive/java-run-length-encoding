@@ -16,7 +16,7 @@ encodes to:
 < 1, 0, 2, 1, 3, 2 >
 
 ```
-Encoding or decoding an empty input stream results in an empty output stream.
+Encoding an empty input stream results in an empty output stream.
 
 The `Decode` function takes a run-length encoded input stream and emits the decoded output stream.
 For example, the stream:
@@ -29,6 +29,8 @@ decodes to:
 < 1, 1, 1, 0 >
 
 ```
+Decoding an empty input stream results in an empty output stream.
+
 
 **Optional puzzle:** `Encode` followed by `Decode` [usually](./.answers/.EDGE_CASES.md) produces the original stream of integers, but when will
 `Decode` followed by `Encode` _not_ produce the original stream of integers? ([Strong hint](decode/src/test/java/functions/DecodeTests.java) - don't look if you want to solve this puzzle yourself)
