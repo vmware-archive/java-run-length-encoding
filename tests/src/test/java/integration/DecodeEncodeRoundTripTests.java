@@ -66,6 +66,7 @@ public class DecodeEncodeRoundTripTests {
 	@Test
 	public void testCountWithNoValue() {
 		StepVerifier.create(Flux.just(2, 1, 0 ).as(decode).as(encode))
+			.expectNext(2, 1)
 			.verifyError(IllegalArgumentException.class);
 	}
 
@@ -90,6 +91,7 @@ public class DecodeEncodeRoundTripTests {
 	@Test
 	public void testEncodeAbortedByError() {
 		StepVerifier.create(Flux.concatDelayError(Flux.just(2, 1), Flux.error(new TestError())).as(decode).as(encode))
+			.expectNext(2, 1)
 			.verifyError(TestError.class);
 	}
 }

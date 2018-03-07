@@ -54,6 +54,7 @@ public class EncodeTests {
 	@Test
 	public void testError() {
 		StepVerifier.create(Flux.concatDelayError(Flux.just(1, 1), Flux.error(new TestError())).as(encode))
+			.expectNext(2, 1)
 			.verifyError(TestError.class);
 	}
 }

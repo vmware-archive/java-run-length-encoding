@@ -59,6 +59,7 @@ public class EncodeDecodeRoundTripTests {
 	@Test
 	public void testError() {
 		StepVerifier.create(Flux.concatDelayError(Flux.just(1, 1), Flux.error(new TestError())).as(encode).as(decode))
+			.expectNext(1, 1)
 			.verifyError(TestError.class);
 	}
 }
