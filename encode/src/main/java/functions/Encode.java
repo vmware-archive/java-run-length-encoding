@@ -5,6 +5,7 @@ import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 import reactor.util.function.Tuples;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 public class Encode implements Function<Flux<Integer>, Flux<Integer>> {
@@ -12,8 +13,17 @@ public class Encode implements Function<Flux<Integer>, Flux<Integer>> {
 	private static final int ANY_INT = 99; // any integer will do
 
 	public Flux<Integer> apply(Flux<Integer> input) {
-		return input.
-			compose(source -> deTuple(encode(partitionBySameValue(source))));
+		return input.compose(source -> {
+			AtomicReference<Integer> last = new AtomicReference<>(null);
+			return source.windowUntil(i -> !i.equals(last.getAndSet(i)), true)
+					.filter(it -> last.get() != null)
+					.flatMap(run -> run
+							.onErrorResume(t -> Mono.empty())
+							.count()
+							.map(Long::intValue)
+							.concatWith(Mono.just(last.get()))
+					);
+		});
 	}
 
 	private static Flux<Flux<Integer>> partitionBySameValue(Flux<Integer> source) {
