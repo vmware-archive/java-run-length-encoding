@@ -31,8 +31,14 @@ decodes to:
 ```
 Decoding an empty input stream results in an empty output stream.
 
+#### Acknowledgements
 
-**Optional puzzle:** `Encode` followed by `Decode` [usually](./.answers/.EDGE_CASES.md) produces the original stream of integers, but when will
+Thanks to Simon Baslé and others in the Reactor project for help with the encoding algorithm.
+Simon has written a [blog](https://simonbasle.github.io/2018/03/reactive-runlength-encoding/) describing a more efficient algorithm.
+
+
+#### Optional puzzle
+`Encode` followed by `Decode` [usually](./.answers/.EDGE_CASES.md) produces the original stream of integers, but when will
 `Decode` followed by `Encode` _not_ produce the original stream of integers? ([Strong hint](decode/src/test/java/functions/DecodeTests.java) - don't look if you want to solve this puzzle yourself)
 
 **Answer:** [here](./.answers/.ANSWER1.md) 
